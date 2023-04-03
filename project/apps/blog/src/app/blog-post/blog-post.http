@@ -1,0 +1,16 @@
+#Create new link-post
+POST http://localhost:3332/api/blog-post/linkpost HTTP/1.1
+Content-Type: application/json
+
+{
+  "link": "rere.ru",
+  "hashTags": ["gfgfg", "werwr"],
+  "description": "zxczxczxczxczxc"
+}
+
+###
+
+# Get post by ID
+GET http://localhost:3332/api/blog-post/761cdafc-50ad-4dbf-9428-1c19e8b5e5d4 HTTP/1.1
+
+###
