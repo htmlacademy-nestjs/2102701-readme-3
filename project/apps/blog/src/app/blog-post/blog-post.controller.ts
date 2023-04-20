@@ -1,80 +1,46 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post } from '@nestjs/common';
 import { BlogPostService } from './blog-post.service';
-import { CreateLinkPostDto } from './dto/create-link-post.dto';
-import { CreatePhotoPostDto } from './dto/create-photo-post.dto';
-import { CreateQuotePostDto } from './dto/create-quote-post.dto';
-import { CreateTextPostDto } from './dto/create-text-post.dto';
-import { CreateVideoPostDto } from './dto/create-video-post.dto';
 import { fillObject } from '@project/util/util-core';
-import { LinkPostRdo } from './rdo/link-post.rdo';
-import { PhotoPostRdo } from './rdo/photo-post.rdo';
-import { QuotePostRdo } from './rdo/quote-post.rdo';
-import { TextPostRdo } from './rdo/text-post.rdo';
-import { VideoPostRdo } from './rdo/video-post.rdo';
+import { PostRdo } from './rdo/post.rdo';
+import { CreatePostDto } from './dto/create-post.dto';
+import { UpdatePostDto } from './dto/update-post.dto';
 
-@Controller('blog-post')
+@Controller('posts')
 export class BlogPostController {
   constructor(
     private readonly blogPostService: BlogPostService
   ) {}
 
-  @Post('linkpost')
-  public async createLinkPost(@Body() dto: CreateLinkPostDto) {
-    const newPost = await this.blogPostService.CreateLinkPost(dto);
-    return fillObject(LinkPostRdo, newPost);
+  @Get('/:id')
+  async show(@Param('id') id: string) {
+    const postId = parseInt(id, 10);
+    const post = await this.blogPostService.getPost(postId);
+    return fillObject(PostRdo, post);
   }
 
-  @Post('photopost')
-  public async createPhotoPost(@Body() dto: CreatePhotoPostDto) {
-    const newPost = await this.blogPostService.CreatePhotoPost(dto);
-    return fillObject(PhotoPostRdo, newPost);
+  @Get('/')
+  async index() {
+    const posts = await this.blogPostService.getPosts();
+    return fillObject(PostRdo, posts);
   }
 
-  @Post('quotepost')
-  public async createQuotePost(@Body() dto: CreateQuotePostDto) {
-    const newPost = await this.blogPostService.CreateQuotePost(dto);
-    return fillObject(QuotePostRdo, newPost);
+  @Post('/')
+  async create(@Body() dto: CreatePostDto) {
+    const newPost = await this.blogPostService.createPost(dto);
+    return fillObject(PostRdo, newPost);
   }
 
-  @Post('textpost')
-  public async createTextPost(@Body() dto: CreateTextPostDto) {
-    const newPost = await this.blogPostService.CreateTextPost(dto);
-    return fillObject(TextPostRdo, newPost);
+  @Delete('/:id')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  async destroy(@Param('id') id: string) {
+    const postId = parseInt(id, 10);
+    this.blogPostService.deletePost(postId);
   }
 
-  @Post('videopost')
-  public async createVideoPost(@Body() dto: CreateVideoPostDto) {
-    const newPost = await this.blogPostService.CreateVideoPost(dto);
-    return fillObject(VideoPostRdo, newPost);
-  }
-
-  @Get(':id')
-  public async showLinkPost(@Param('id') id: string) {
-    const existPost = await this.blogPostService.getPost(id);
-    return fillObject(LinkPostRdo, existPost);
-  }
-
-  @Get(':id')
-  public async showPhotoPost(@Param('id') id: string) {
-    const existPost = await this.blogPostService.getPost(id);
-    return fillObject(PhotoPostRdo, existPost);
-  }
-
-  @Get(':id')
-  public async showQuotePost(@Param('id') id: string) {
-    const existPost = await this.blogPostService.getPost(id);
-    return fillObject(QuotePostRdo, existPost);
-  }
-
-  @Get(':id')
-  public async showTextPost(@Param('id') id: string) {
-    const existPost = await this.blogPostService.getPost(id);
-    return fillObject(TextPostRdo, existPost);
-  }
-
-  @Get(':id')
-  public async showVideoPost(@Param('id') id: string) {
-    const existPost = await this.blogPostService.getPost(id);
-    return fillObject(VideoPostRdo, existPost);
+  @Patch('/:id')
+  async update(@Param('id') id: string, @Body() dto: UpdatePostDto) {
+    const postId = parseInt(id, 10);
+    const updatedPost = await this.blogPostService.updatePost(postId, dto);
+    return fillObject(PostRdo, updatedPost)
   }
 }

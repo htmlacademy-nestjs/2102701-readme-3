@@ -1,13 +1,11 @@
 import { Module } from '@nestjs/common';
-
-import { BlogPostModule } from './blog-post/blog-post.module';
+import { PrismaModule } from './prisma/prisma.module';
 import { BlogCategoryModule } from './blog-category/blog-category.module';
-import { BlogPostController } from './blog-post/blog-post.controller';
-import { BlogPostService } from './blog-post/blog-post.service';
+import { BlogPostModule } from './blog-post/blog-post.module';
 
 @Module({
-  imports: [BlogPostModule, BlogCategoryModule],
-  controllers: [BlogPostController],
-  providers: [BlogPostService],
+  imports: [PrismaModule, BlogCategoryModule, BlogPostModule],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}
