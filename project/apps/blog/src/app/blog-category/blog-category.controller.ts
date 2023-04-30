@@ -12,9 +12,8 @@ export class BlogCategoryController {
   ) {}
 
   @Get('/:id')
-  async show(@Param('id') id: string) {
-    const categoryId = parseInt(id, 10);
-    const existCategory = await this.blogCategoryService.getCategory(categoryId);
+  async show(@Param('id') id: number) {
+    const existCategory = await this.blogCategoryService.getCategory(id);
     return fillObject(CategoryRdo, existCategory);
   }
 
@@ -32,15 +31,13 @@ export class BlogCategoryController {
 
   @Delete('/:id')
   @HttpCode(HttpStatus.NO_CONTENT)
-  async destroy(@Param('id') id: string) {
-    const categoryId = parseInt(id, 10);
-    this.blogCategoryService.deleteCategory(categoryId);
+  async destroy(@Param('id') id: number) {
+    this.blogCategoryService.deleteCategory(id);
   }
 
   @Patch('/:id')
-  async update(@Param('id') id: string, @Body() dto: UpdateCategoryDto) {
-    const categoryId = parseInt(id, 10);
-    const updatedCategory = await this.blogCategoryService.updateCategory(categoryId, dto)
+  async update(@Param('id') id: number, @Body() dto: UpdateCategoryDto) {
+    const updatedCategory = await this.blogCategoryService.updateCategory(id, dto)
     return fillObject(CategoryRdo, updatedCategory);
   }
 }
