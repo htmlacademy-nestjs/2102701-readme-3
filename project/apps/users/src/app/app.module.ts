@@ -3,12 +3,14 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Module } from '@nestjs/common';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { BlogUserModule } from './blog-user/blog-user.module';
+import { NotifyModule } from './notify/notify.module';
 
 @Module({
   imports: [
     AuthenticationModule,
     BlogUserModule,
     ConfigUsersModule,
+    NotifyModule,
     MongooseModule.forRootAsync(
       getMongooseOptions()
   )],
