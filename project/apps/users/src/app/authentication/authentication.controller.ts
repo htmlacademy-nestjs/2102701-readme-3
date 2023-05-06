@@ -9,7 +9,7 @@ import { MongoidValidationPipe } from '@project/shared/shared-pipes';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { NotifyService } from '../notify/notify.service';
 import { LocalAuthGuard } from './guards/local-auth-guard';
-import { RequestWithUser } from '@project/shared/shared-types';
+import { RequestWithTokenPayload, RequestWithUser } from '@project/shared/shared-types';
 import { JwtRefreshGuard } from './guards/jwt-refresh.guard';
 
 @ApiTags('authentication')
@@ -71,5 +71,10 @@ export class AuthenticationController {
     return this.authService.createUserToken(user);
   }
 
+  @UseGuards(JwtAuthGuard)
+  @Post('check')
+  public async checkToken(@Req() { user: payload }: RequestWithTokenPayload) {
+    return payload;
+  }
 
 }
