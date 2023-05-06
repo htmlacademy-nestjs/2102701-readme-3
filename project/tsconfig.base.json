@@ -10,7 +10,10 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "lib": ["es2017", "dom"],
+    "lib": [
+      "es2017",
+      "dom"
+    ],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
@@ -21,13 +24,28 @@
       "@project/config/config-uploader": [
         "libs/config/config-uploader/src/index.ts"
       ],
-      "@project/config/config-users": ["libs/config/config-users/src/index.ts"],
-      "@project/models/blog-models": ["libs/models/blog-models/src/index.ts"],
-      "@project/shared/shared-pipes": ["libs/shared/shared-pipes/src/index.ts"],
-      "@project/shared/shared-types": ["libs/shared/shared-types/src/index.ts"],
-      "@project/util/util-core": ["libs/util/util-core/src/index.ts"],
-      "@project/util/util-types": ["libs/util/util-types/src/index.ts"]
+      "@project/config/config-users": [
+        "libs/config/config-users/src/index.ts"
+      ],
+      "@project/models/blog-models": [
+        "libs/models/blog-models/src/index.ts"
+      ],
+      "@project/shared/shared-pipes": [
+        "libs/shared/shared-pipes/src/index.ts"
+      ],
+      "@project/shared/shared-types": [
+        "libs/shared/shared-types/src/index.ts"
+      ],
+      "@project/util/util-core": [
+        "libs/util/util-core/src/index.ts"
+      ],
+      "@project/util/util-types": [
+        "libs/util/util-types/src/index.ts"
+      ]
     }
   },
-  "exclude": ["node_modules", "tmp"]
+  "exclude": [
+    "node_modules",
+    "tmp"
+  ]
 }
