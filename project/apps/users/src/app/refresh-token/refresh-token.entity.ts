@@ -7,7 +7,6 @@ export class RefreshTokenEntity implements Entity<RefreshTokenEntity>, Token {
   public id: string;
   public tokenId: string;
   public userId: string;
-  [key: string]: unknown;
 
   constructor(refreshToken: Token) {
     this.createdAt = new Date;
