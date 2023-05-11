@@ -1,9 +1,8 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Query } from '@nestjs/common';
 import { BlogPostService } from './blog-post.service';
 import { fillObject } from '@project/util/util-core';
 import { PostRdo } from './rdo/post.rdo';
 import { CreatePostDto } from './dto/create-post.dto';
-import { UpdatePostDto } from './dto/update-post.dto';
 import { PostQuery } from './query/post.query';
 
 @Controller('posts')
@@ -36,9 +35,4 @@ export class BlogPostController {
     this.blogPostService.deletePost(id);
   }
 
-  @Patch('/:id')
-  async update(@Param('id') id: number, @Body() dto: UpdatePostDto) {
-    const updatedPost = await this.blogPostService.updatePost(id, dto);
-    return fillObject(PostRdo, updatedPost)
-  }
 }

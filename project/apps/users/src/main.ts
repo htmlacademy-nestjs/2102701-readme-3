@@ -22,13 +22,13 @@ async function bootstrap() {
   app.setGlobalPrefix(globalPrefix);
 
   const configService = app.get(ConfigService);
+  const port = configService.get('application.port');
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('spec', app, document);
 
   app.useGlobalPipes(new ValidationPipe());
 
-  const port = configService.get('application.port');
 
   await app.listen(port);
   Logger.log(
